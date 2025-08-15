@@ -1,0 +1,30 @@
+def clasificar_few_shot(oracion,oraciones):
+    mensajes = [
+        {"role": "system", "content": """Eres un modelo de clasificación de texto, experto en identificar contenido misogino, esto tomando en cuenta que la misoginia 
+        se define como el odio o prejuicio contra las mujeres, puede manifestarse lingüísticamente de numerosas maneras, incluida la exclusión social, la discriminación,
+         la hostilidad, las amenazas de violencia y la cosificación sexual.  Las clases posibles son: 'Misogino', 'No Misogino'. Responde solo con la etiqueta exacta."""},
+
+        # Ejemplos previos
+        {"role": "user", "content": "Recibes estas 4 oraciones parecida a la oración a clasificar que te ayudarán a tomar tu decisión"},
+        {"role": "user", "content":  f"'{oraciones[0]}'"},
+        {"role": "assistant", "content": "Misogino"},
+
+        {"role": "user", "content": f"'{oraciones[1]}'"},
+        {"role": "assistant", "content": "Misogino"},
+
+        {"role": "user", "content": f"'{oraciones[2]}'"},
+        {"role": "assistant", "content": "No Misogino"},
+
+        {"role": "user", "content": f"'{oraciones[3]}'"},
+        {"role": "assistant", "content": "No Misogino"},
+
+        # Oración a clasificar
+        {"role": "user", "content": f"Clasifica esta oración: '{oracion}'"}
+    ]
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=mensajes
+    )
+
+    return response.choices[0].message.content.strip()
