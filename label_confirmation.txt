@@ -1,0 +1,16 @@
+def confirmar_etiqueta(oracion, etiqueta_sugerida):
+    mensajes = [
+        {"role": "system", "content": """Eres un modelo de validación de clasificación de textos misoginos, eres experto en identificar contenido misogino, 
+        esto tomando en cuenta que la misoginia se define como el odio o prejuicio contra las mujeres, puede manifestarse lingüísticamente de numerosas maneras, 
+        incluida la exclusión social, la discriminación, la hostilidad, las amenazas de violencia y la cosificación sexual. Evalúa si la categoría asignada es correcta,
+         donde 1 significa 'Este texto es Misogino' y 0 significa 'Este texto No es Misogino'.Responde solo con '1' para indicar que es misogino y '0' para decir que no
+          es misogino. Solo dame la respuesta sin nada adicional"""},
+        {"role": "user", "content": f"La oración '{oracion}' ha sido etiquetada como '{etiqueta_sugerida}'. ¿Cómo clasificas esta oración?"}
+    ]
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=mensajes
+    )
+
+    return response.choices[0].message.content.strip()
