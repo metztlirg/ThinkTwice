@@ -1,0 +1,12 @@
+mensajes = [
+        {"role": "system", "content": """Eres un modelo de clasificación de textos misoginos que asigna una categoría a cada oración,
+         esto tomando en cuenta que la misoginia se define como el odio o prejuicio contra las mujeres, puede manifestarse lingüísticamente de numerosas maneras, 
+         incluida la exclusión social, la discriminación, la hostilidad, las amenazas de violencia y la cosificación sexual. Las clases posibles para clasificar son: 
+         'Misogino', 'No Misogino'. Responde solo con la etiqueta exacta."""},
+        {"role": "user", "content": f"Clasifica esta oración: '{oracion}'"}
+    ]
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",  # Usa "gpt-3.5-turbo" si prefieres
+        messages=mensajes
+    )
