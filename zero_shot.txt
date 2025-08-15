@@ -1,0 +1,9 @@
+mensajes = [
+        {"role": "system", "content": "Eres un modelo de clasificación de textos misoginos que asigna una categoría a cada oración. Las clases posibles son: 'Misogino', 'No Misogino'. Responde solo con la etiqueta exacta."},
+        {"role": "user", "content": f"Clasifica esta oración: '{oracion}'"}
+    ]
+
+    response = client.chat.completions.create( #o1-mini
+        model="gpt-4o-mini",  # Usa "gpt-3.5-turbo" si prefieres
+        messages=mensajes
+    )
